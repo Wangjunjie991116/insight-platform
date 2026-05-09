@@ -17,7 +17,7 @@ export const themeRegistry: Record<ThemeId, ThemeToken> = {
 }
 
 /** 默认主题 ID：首次加载、用户未设置偏好时使用 */
-export const DEFAULT_THEME_ID: ThemeId = 'sunrise'
+export const DEFAULT_THEME_ID: ThemeId = 'aurora'
 
 /** 主题 ID 列表，可迭代用于选择器渲染 */
 export const THEME_IDS: ThemeId[] = ['sunrise', 'aurora', 'midnight', 'forest']

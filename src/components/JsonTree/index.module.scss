@@ -1,0 +1,64 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.wrap {
+  @include glass;
+  padding: spacing(sm);
+  max-height: 480px;
+  overflow: auto;
+  @include custom-scrollbar;
+  font-family: font-family-mono();
+  font-size: font-size-sm();
+}
+
+.key {
+  color: var(--ix-code-keyword);
+}
+
+.str {
+  color: var(--ix-code-string);
+}
+
+.num {
+  color: var(--ix-code-number);
+}
+
+.bool {
+  color: var(--ix-code-keyword);
+}
+
+.null {
+  color: text-tertiary();
+  font-style: italic;
+}
+
+.bracket {
+  color: text-secondary();
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    color: color-primary();
+  }
+}
+
+.ellipsis {
+  color: text-tertiary();
+  cursor: pointer;
+  padding: 0 2px;
+
+  &:hover {
+    color: color-primary();
+  }
+}
+
+.row {
+  padding: 1px spacing(sm);
+  border-radius: radius(sm);
+  white-space: pre-wrap;
+  word-break: break-all;
+
+  &:hover {
+    background: bg-surface-hover();
+  }
+}

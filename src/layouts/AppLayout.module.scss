@@ -1,0 +1,143 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.layout {
+  min-height: 100vh;
+  background: bg-page();
+}
+
+// ─── 顶栏 ───
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 20px;
+  background: layout-headerBg();
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid border-subtle();
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: radius(round);
+  background: brand-gradient();
+  box-shadow: 0 2px 8px color-primary() 30;
+}
+
+.brand {
+  font-size: font-size-lg();
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: text-secondary();
+  font-size: font-size-sm();
+}
+
+.divider {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background: border-default();
+}
+
+.avatar {
+  cursor: pointer;
+  background: color-primary() 20;
+  transition: background motion-fast() motion-easing();
+
+  &:hover {
+    background: color-primary() 30;
+  }
+}
+
+// ─── 侧栏 ───
+
+.sider {
+  background: layout-siderBg() !important;
+  border-right: 1px solid border-subtle();
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding-top: 8px;
+
+  :global {
+    .ant-layout-sider-trigger {
+      background: bg-surface();
+      border-top: 1px solid border-subtle();
+      color: text-secondary();
+    }
+  }
+}
+
+.menu {
+  background: transparent !important;
+  border-inline-end: none !important;
+
+  :global {
+    .ant-menu-item {
+      margin: 2px 8px;
+      border-radius: radius(md);
+      color: text-secondary();
+
+      &:hover {
+        background: bg-surface-hover();
+        color: text-primary();
+      }
+
+      &.ant-menu-item-selected {
+        background: color-primary() 12;
+        color: color-primary();
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// ─── 内容区 ───
+
+.content {
+  flex: 1;
+  min-height: 0;
+  padding: 20px 24px;
+  overflow-y: auto;
+  background: layout-contentBg();
+
+  @include custom-scrollbar;
+}
+
+.spin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.noTeam {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: text-tertiary();
+  font-size: font-size-base();
+}

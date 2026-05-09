@@ -2,24 +2,14 @@
  * Axios 实例封装。
  *
  * - baseURL 从 VITE_API_BASE_URL 读取
- * - 请求拦截器注入 team_id（优先从 localStorage 读取，后续 §4 切到 teamStore）
+ * - 请求拦截器注入 team_id（从 teamStore 读取）
  * - 响应拦截器统一处理 4xx/5xx 错误，用 Antd notification 提示
  */
 
 import { notification } from 'antd'
 import axios, { type AxiosInstance, type AxiosError } from 'axios'
 
-const TEAM_STORAGE_KEY = 'insight-platform:activeTeamId'
-
-/** 从 localStorage 读取当前团队 ID（§4 后迁移到 teamStore） */
-function getActiveTeamId(): string | null {
-  if (typeof window === 'undefined') return null
-  try {
-    return window.localStorage.getItem(TEAM_STORAGE_KEY)
-  } catch {
-    return null
-  }
-}
+import { useTeamStore } from '@/store/teamStore'
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
@@ -31,12 +21,15 @@ export const apiClient: AxiosInstance = axios.create({
 
 // 请求拦截器：注入 team_id
 apiClient.interceptors.request.use((config) => {
-  const teamId = getActiveTeamId()
+  const teamId = useTeamStore.getState().activeTeamId
   if (teamId) {
     config.headers['X-Team-Id'] = teamId
-    // 如果请求体是对象且没有 team_id，自动补上
     if (config.data && typeof config.data === 'object' && !config.data.team_id) {
       config.data.team_id = teamId
+    }
+    // GET 请求自动拼 team_id 查询参数
+    if (config.method === 'get' || !config.method) {
+      config.params = { ...config.params, team_id: teamId }
     }
   }
   return config
@@ -49,12 +42,10 @@ apiClient.interceptors.response.use(
     const status = error.response?.status
     const detail = error.response?.data?.detail || error.message || '未知错误'
 
-    // 静默处理 401（后续权限体系接入后再展开）
     if (status === 401) {
       return Promise.reject(error)
     }
 
-    // 避免在 MSW /health 探活失败时刷屏
     if (error.config?.url?.includes('/health')) {
       return Promise.reject(error)
     }

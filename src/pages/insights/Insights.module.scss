@@ -1,0 +1,63 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(lg);
+}
+
+.group {
+  @include glass;
+  padding: spacing(lg);
+}
+
+.groupTitle {
+  font-size: font-size-base();
+  font-weight: 600;
+  color: text-primary();
+  margin-bottom: spacing(md);
+  padding-bottom: spacing(sm);
+  border-bottom: 1px solid border-subtle();
+}
+
+.card {
+  padding: spacing(md) 0;
+  border-bottom: 1px solid border-subtle();
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: spacing(sm);
+}
+
+.cardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cardDesc {
+  font-size: font-size-sm();
+  color: text-tertiary();
+  margin-bottom: 8px;
+}
+
+.cardImpact {
+  font-size: font-size-sm();
+  color: color-primary();
+  margin-bottom: 8px;
+}
+
+.chartWrap {
+  margin-top: 12px;
+}

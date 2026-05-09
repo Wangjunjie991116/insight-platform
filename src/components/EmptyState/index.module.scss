@@ -1,0 +1,29 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: spacing(xxl) spacing(lg);
+  gap: spacing(md);
+}
+
+.icon {
+  color: text-tertiary();
+  opacity: 0.6;
+}
+
+.title {
+  font-size: font-size-lg();
+  font-weight: 600;
+  color: text-secondary();
+}
+
+.desc {
+  font-size: font-size-sm();
+  color: text-tertiary();
+  text-align: center;
+  max-width: 320px;
+}

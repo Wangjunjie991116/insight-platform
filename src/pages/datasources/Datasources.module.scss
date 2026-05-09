@@ -1,0 +1,65 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: spacing(md);
+}
+
+.card {
+  @include glass;
+  padding: spacing(lg);
+  display: flex;
+  flex-direction: column;
+  gap: spacing(sm);
+  transition: transform motion-base() motion-easing(),
+    box-shadow motion-base() motion-easing();
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: brand-glow();
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardName {
+  font-weight: 600;
+  font-size: font-size-base();
+  color: text-primary();
+  @include text-ellipsis;
+}
+
+.cardType {
+  font-size: font-size-xs();
+  padding: 2px 8px;
+  border-radius: radius(sm);
+  background: color-primary() 12;
+  color: color-primary();
+}
+
+.cardInfo {
+  font-size: font-size-sm();
+  color: text-tertiary();
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: spacing(xs);
+  margin-top: spacing(xs);
+}

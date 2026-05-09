@@ -30,6 +30,88 @@ function minutesAgo(min: number): string {
 // ─── 初始数据 ───
 
 const seedTasks: TaskResponse[] = [
+  // team-alpha（默认活跃团队）
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'completed',
+    created_at: minutesAgo(45),
+    updated_at: minutesAgo(30),
+    message: '分析完成，生成 3 条洞察',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'running',
+    created_at: minutesAgo(15),
+    updated_at: minutesAgo(2),
+    message: 'Agent 3 代码生成中',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'pending',
+    created_at: minutesAgo(5),
+    updated_at: minutesAgo(5),
+    message: '等待执行',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'failed',
+    created_at: minutesAgo(120),
+    updated_at: minutesAgo(110),
+    message: '沙箱执行超时',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'completed',
+    created_at: minutesAgo(200),
+    updated_at: minutesAgo(185),
+    message: '分析完成，生成 5 条洞察',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'completed',
+    created_at: minutesAgo(1440),
+    updated_at: minutesAgo(1420),
+    message: '分析完成，生成 2 条洞察',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'completed',
+    created_at: minutesAgo(2880),
+    updated_at: minutesAgo(2860),
+    message: '分析完成，生成 4 条洞察',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'completed',
+    created_at: minutesAgo(4320),
+    updated_at: minutesAgo(4300),
+    message: '分析完成，生成 1 条洞察',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'completed',
+    created_at: minutesAgo(5760),
+    updated_at: minutesAgo(5740),
+    message: '分析完成，生成 6 条洞察',
+  },
+  {
+    task_id: genId(),
+    team_id: 'team-alpha',
+    status: 'failed',
+    created_at: minutesAgo(7200),
+    updated_at: minutesAgo(7190),
+    message: '数据库连接失败',
+  },
+  // team-demo
   {
     task_id: genId(),
     team_id: 'team-demo',

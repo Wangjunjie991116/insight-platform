@@ -1,0 +1,73 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.wrap {
+  display: flex;
+  gap: spacing(lg);
+  min-height: 200px;
+}
+
+.tableList {
+  width: 200px;
+  flex-shrink: 0;
+  @include glass;
+  padding: spacing(sm);
+  overflow-y: auto;
+  @include custom-scrollbar;
+}
+
+.tableItem {
+  padding: spacing(xs) spacing(sm);
+  border-radius: radius(md);
+  cursor: pointer;
+  font-size: font-size-sm();
+  color: text-secondary();
+  transition: all motion-fast() motion-easing();
+  @include text-ellipsis;
+
+  &:hover {
+    background: bg-surface-hover();
+    color: text-primary();
+  }
+
+  &.active {
+    background: color-primary() 12;
+    color: color-primary();
+  }
+}
+
+.fieldDetail {
+  flex: 1;
+  min-width: 0;
+  @include glass;
+  padding: spacing(md);
+}
+
+.fieldTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: font-size-sm();
+
+  th {
+    text-align: left;
+    padding: spacing(xs) spacing(sm);
+    color: text-tertiary();
+    font-weight: 500;
+    border-bottom: 1px solid border-subtle();
+  }
+
+  td {
+    padding: spacing(xs) spacing(sm);
+    color: text-primary();
+    border-bottom: 1px solid border-subtle();
+  }
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: text-tertiary();
+  font-size: font-size-sm();
+}

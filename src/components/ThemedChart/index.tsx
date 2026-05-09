@@ -3,7 +3,7 @@ import * as echarts from 'echarts/core'
 import ReactEChartsMod from 'echarts-for-react/lib/core'
 import { useMemo, type CSSProperties } from 'react'
 
-import { registerEcharts } from './echartsCore'
+import { registerEcharts } from '../echartsCore'
 
 import { useThemeStore } from '@/store/themeStore'
 import { ECHARTS_THEME_NAME } from '@/theme/toEchartsTheme'

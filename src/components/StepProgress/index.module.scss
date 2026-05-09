@@ -1,0 +1,104 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: spacing(md);
+  position: relative;
+}
+
+// 左侧圆点 + 连线列
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 24px;
+  height: 24px;
+  border-radius: radius(round);
+  border: 2px solid border-default();
+  background: bg-surface();
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  z-index: 1;
+  transition: all motion-fast() motion-easing();
+
+  &.pending {
+    border-color: var(--ix-step-pending-border);
+    color: text-tertiary();
+  }
+
+  &.running {
+    border-color: transparent;
+    background: var(--ix-step-running-gradient);
+    color: text-on-primary();
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  &.success {
+    border-color: var(--ix-step-success-border);
+    background: var(--ix-step-success-border);
+    color: text-on-primary();
+  }
+
+  &.fail {
+    border-color: var(--ix-step-fail-border);
+    background: var(--ix-step-fail-border);
+    color: text-on-primary();
+  }
+}
+
+.line {
+  width: 2px;
+  flex: 1;
+  min-height: 16px;
+  background: border-subtle();
+  transition: background motion-fast() motion-easing();
+
+  &.success {
+    background: var(--ix-step-success-border);
+  }
+
+  &.fail {
+    background: var(--ix-step-fail-border);
+  }
+}
+
+// 右侧内容
+.body {
+  flex: 1;
+  padding-bottom: spacing(lg);
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  font-size: font-size-base();
+  color: text-primary();
+  line-height: 24px;
+}
+
+.desc {
+  font-size: font-size-sm();
+  color: text-tertiary();
+  margin-top: 2px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}

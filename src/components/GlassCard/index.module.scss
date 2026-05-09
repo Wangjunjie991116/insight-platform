@@ -1,0 +1,14 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.card {
+  @include glass;
+  padding: spacing(lg);
+  transition: transform motion-base() motion-easing(),
+    box-shadow motion-base() motion-easing();
+
+  &.hoverable:hover {
+    transform: translateY(-2px);
+    box-shadow: brand-glow();
+  }
+}

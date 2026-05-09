@@ -1,0 +1,57 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(lg);
+}
+
+.metaCard {
+  @include glass;
+  padding: spacing(lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: spacing(md);
+  flex-wrap: wrap;
+}
+
+.metaLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.metaTitle {
+  font-size: font-size-lg();
+  font-weight: 600;
+  color: text-primary();
+}
+
+.metaInfo {
+  display: flex;
+  gap: spacing(md);
+  font-size: font-size-sm();
+  color: text-tertiary();
+  flex-wrap: wrap;
+}
+
+.pipelineSection {
+  @include glass;
+  padding: spacing(lg);
+}
+
+.pipelineTitle {
+  font-size: font-size-base();
+  font-weight: 600;
+  color: text-primary();
+  margin-bottom: spacing(md);
+}
+
+.tabCard {
+  @include glass;
+  padding: spacing(lg);
+  min-height: 300px;
+}

@@ -1,0 +1,50 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: spacing(sm);
+}
+
+.ring {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.ring svg {
+  transform: rotate(-90deg);
+}
+
+.track {
+  fill: none;
+  stroke: border-subtle();
+  stroke-width: 4;
+}
+
+.bar {
+  fill: none;
+  stroke: color-primary();
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset motion-base() motion-easing(),
+    stroke motion-fast() motion-easing();
+}
+
+.value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: font-size-sm();
+  font-weight: 700;
+  color: text-primary();
+}
+
+.label {
+  font-size: font-size-sm();
+  color: text-secondary();
+}

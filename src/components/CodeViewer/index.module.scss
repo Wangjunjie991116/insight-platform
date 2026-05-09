@@ -1,0 +1,35 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.wrap {
+  @include glass;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: spacing(sm) spacing(md);
+  border-bottom: 1px solid border-subtle();
+  background: bg-surface();
+}
+
+.title {
+  font-size: font-size-sm();
+  font-weight: 600;
+  color: text-secondary();
+}
+
+.actions {
+  display: flex;
+  gap: spacing(xs);
+}
+
+.code {
+  margin: 0;
+  padding: spacing(md);
+  overflow: auto;
+  font-size: font-size-sm() !important;
+  @include custom-scrollbar;
+}
