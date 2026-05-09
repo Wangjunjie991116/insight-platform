@@ -1,0 +1,101 @@
+@use './tokens' as *;
+
+// ---------------------------------------------------------
+// 复用 mixin：玻璃态 / 渐变文字 / hover 抬起 / 滚动条
+// ---------------------------------------------------------
+
+// 玻璃态卡片：半透明背景 + backdrop-blur + 柔和边框 + 发光阴影
+@mixin glass($bg: card-bg(), $blur: card-blur()) {
+  background: $bg;
+  border: card-border();
+  border-radius: radius(lg);
+  box-shadow: card-shadow();
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+// 悬浮抬起：hover 时向上 2px，带阴影过渡
+@mixin hover-lift($distance: 2px) {
+  transition: transform motion-base() motion-easing(),
+    box-shadow motion-base() motion-easing();
+
+  &:hover {
+    transform: translateY(-#{$distance});
+    box-shadow: brand-glow();
+  }
+}
+
+// 渐变文字：主色渐变 + 透明填充
+@mixin gradient-text($gradient: brand-gradient()) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+// 渐变背景（常用于 badge / 强调 tag）
+@mixin gradient-bg($gradient: brand-gradient()) {
+  background: $gradient;
+  color: text-on-primary();
+}
+
+// 滚动条美化
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: border-default();
+    border-radius: radius(round);
+
+    &:hover {
+      background: border-strong();
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+// 文本省略
+@mixin text-ellipsis($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// 渐变描边：外层 gradient + 内层实色填充的 hack
+@mixin gradient-border($radius: radius(lg), $border-width: 1px, $gradient: brand-gradient()) {
+  position: relative;
+  border-radius: $radius;
+  background: bg-surface();
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: $border-width;
+    border-radius: inherit;
+    background: $gradient;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}

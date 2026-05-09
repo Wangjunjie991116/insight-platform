@@ -1,0 +1,44 @@
+# 依赖
+node_modules
+.pnpm-store
+
+# 构建产物
+dist
+dist-ssr
+build
+*.local
+
+# 日志
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 编辑器 / IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 测试 / 覆盖率
+coverage
+.nyc_output
+
+# 环境变量（保留 .env.example）
+.env
+.env.local
+.env.*.local
+
+# 类型缓存
+*.tsbuildinfo
+
+# MSW service worker（开发期生成，交给 pnpm run msw:init）
+# public/mockServiceWorker.js  # 注：该文件交付仓库，注释掉以便提交

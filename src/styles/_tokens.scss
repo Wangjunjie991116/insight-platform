@@ -1,0 +1,53 @@
+// ---------------------------------------------------------
+// Token 门面（SCSS 可消费的 design token）
+// ---------------------------------------------------------
+// 设计原则：
+//   1. 本文件绝不写死色值——所有值必须指向 :root 上由 ThemeProvider 注入的 CSS 变量
+//   2. 提供命名函数（token-*）而非暴露裸 var()，便于将来收敛到类型更严格的表达
+//   3. 把常用 var() 汇总在此，业务模块只引 @use '@/styles/tokens' as *;
+
+// 颜色 ----------------------------------------------------
+@function color-primary()        { @return var(--ix-color-primary); }
+@function color-primary-hover()  { @return var(--ix-color-primary-hover); }
+@function color-primary-active() { @return var(--ix-color-primary-active); }
+@function color-secondary()      { @return var(--ix-color-secondary); }
+
+@function bg-page()          { @return var(--ix-bg-page); }
+@function bg-surface()       { @return var(--ix-bg-surface); }
+@function bg-surface-hover() { @return var(--ix-bg-surface-hover); }
+@function bg-elevated()      { @return var(--ix-bg-elevated); }
+@function bg-mask()           { @return var(--ix-bg-mask); }
+
+@function text-primary()   { @return var(--ix-text-primary); }
+@function text-secondary() { @return var(--ix-text-secondary); }
+@function text-tertiary()  { @return var(--ix-text-tertiary); }
+@function text-disabled()  { @return var(--ix-text-disabled); }
+@function text-on-primary(){ @return var(--ix-text-on-primary); }
+@function text-link()      { @return var(--ix-text-link); }
+
+@function border-subtle()  { @return var(--ix-border-subtle); }
+@function border-default() { @return var(--ix-border-default); }
+@function border-strong()  { @return var(--ix-border-strong); }
+
+@function brand-gradient() { @return var(--ix-brand-gradient); }
+@function brand-glow()     { @return var(--ix-brand-glow); }
+
+// 卡片 / 布局 -------------------------------------------
+@function card-bg()     { @return var(--ix-card-bg); }
+@function card-border() { @return var(--ix-card-border); }
+@function card-shadow() { @return var(--ix-card-shadow); }
+@function card-blur()   { @return var(--ix-card-blur); }
+
+@function layout-header-bg()  { @return var(--ix-layout-header-bg); }
+@function layout-sider-bg()   { @return var(--ix-layout-sider-bg); }
+@function layout-content-bg() { @return var(--ix-layout-content-bg); }
+
+// 尺寸 ----------------------------------------------------
+@function radius($size: md)  { @return var(--ix-radius-#{$size}); }
+@function spacing($size: md) { @return var(--ix-spacing-#{$size}); }
+
+// 动效 ----------------------------------------------------
+@function motion-fast()  { @return var(--ix-motion-fast); }
+@function motion-base()  { @return var(--ix-motion-base); }
+@function motion-slow()  { @return var(--ix-motion-slow); }
+@function motion-easing(){ @return var(--ix-motion-easing); }

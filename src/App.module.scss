@@ -1,0 +1,38 @@
+@use '@/styles/tokens' as *;
+@use '@/styles/mixins' as *;
+
+.page {
+  min-height: 100vh;
+  padding: spacing(xl);
+  display: flex;
+  flex-direction: column;
+  gap: spacing(xl);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: spacing(md) spacing(lg);
+  @include glass;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: spacing(md);
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  border-radius: radius(md);
+  background: brand-gradient();
+  box-shadow: brand-glow();
+  display: inline-block;
+}
+
+.panel {
+  padding: spacing(xl);
+  border-radius: radius(xl);
+}

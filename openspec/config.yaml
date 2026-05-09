@@ -1,20 +1,85 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  项目：insight-platform（insight-x AI Agent 数据分析平台的 Web 控制台）
+  使用者：业务分析师 / 产品经理 / 数据工程师（企业内部业务方）
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+  后端依赖：insight-x FastAPI（localhost:8000, OpenAPI 见 ../insight-x/docs/openapi.yaml）
+    - POST /api/v1/tasks          创建任务
+    - POST /api/v1/tasks/{id}/run 触发五步分析流水线
+    - GET  /api/v1/tasks/{id}     任务状态
+    - GET  /api/v1/tasks/{id}/result 分析结果（data_dict/analysis_plan/generated_code/execution_result/insights）
+    - GET  /api/v1/tasks          任务列表（按 team_id 过滤）
+
+  运行环境：
+    - Node.js 24.15.0（通过 .nvmrc 固定）
+    - 包管理器 pnpm 10.10.0（通过 package.json#packageManager 固定，启用 corepack）
+    - 不允许 npm / yarn 安装（锁到 pnpm-lock.yaml）
+
+  技术栈：
+    - React 18 + Vite 8 + TypeScript 5（锁 vite ^8.0.11，Node 24 兼容）
+    - Ant Design 6（6.3.7+）
+      · 不使用 @ant-design/pro-components（其 peer 尚未支持 antd 6）
+      · 使用 antd 6 原生 Layout / Table / Menu 等组件自行搭布局
+    - 图表：echarts 5 + echarts-for-react（放弃 @ant-design/charts，原因：
+      美观度/自定义深度/主题灵活性在 AI 科技感+渐变风格下 echarts 明显更合适；
+      运行时通过 echarts.registerTheme 配合 token 实现一键换肤）
+    - 状态：Zustand（仅 UI 状态，不做请求缓存）
+    - 异步请求：axios + ahooks useRequest（不引入 TanStack Query，保持请求链路直白，
+      每次页面进入或用户触发 refresh 按钮重新发起请求）
+    - 路由：React Router 6
+    - Mock：MSW（Mock Service Worker），开发期拦截 /api/v1/* 返回假数据
+    - 文案：直接写死简体中文，不引入 i18n 框架（无 i18next / react-i18next）
+    - 样式：Sass（SCSS）+ CSS Modules；选型依据：Antd 5/6 已迁 CSS-in-JS，Less 无兼容优势；
+      Sass 的 @use/@function/mixin 更契合本项目的 token + 玻璃态 + 渐变需求；
+      约定所有颜色/间距走 CSS 变量（:root 注入），SCSS 仅写结构/布局/动效
+
+  主题与 Design Token 体系：
+    - 单一事实源：src/theme/tokens/*.ts，每套主题导出一个 ThemeToken 对象
+    - 三层结构：seed tokens（主色/辅色/成功/警告/错误）→ map tokens（语义色：bg/fg/border/surface 等）→ alias tokens（组件级）
+    - 默认主题：sunrise（黄橙风）
+      · 主色 #F59E0B（琥珀金），辅色 #EA580C（烧橙），成功 #10B981，警告 #FACC15，错误 #DC2626
+      · 背景由米白 #FFF8EE 到淡橙 #FFEED9 的渐变
+      · 玻璃态卡片：rgba(255,255,255,0.6) + 24px backdrop-blur + 柔和暖色阴影
+      · 强调色渐变：linear-gradient(135deg, #FDBA74 0%, #F97316 45%, #EA580C 100%)
+    - 兼容预留主题：aurora（紫蓝）、midnight（深色）、forest（绿），作为未来切换目标（本次不实现）
+    - 切主题机制：ThemeProvider 读 Zustand store 的 activeThemeId → 向 Antd ConfigProvider 注入 tokens → 同步
+      echarts.registerTheme + 将 token 写入 :root CSS 变量 → 组件/图表/自定义样式全部通过 token 消费
+
+  UI 视觉：黄橙 AI 科技感
+    - 玻璃态卡片 + 柔和暖色阴影
+    - 小幅动效（hover 抬起 2px、loading 环形进度走 token 主色、渐变 text）
+    - 图标：lucide-react + @ant-design/icons 补位
+    - 字体：'Inter', 'PingFang SC', 'Noto Sans SC' 回退
+
+  路由与菜单：
+    /overview, /tasks, /tasks/new, /tasks/:id, /datasources, /insights, /settings
+
+  范围约束（精瘦 MVP）：
+    MUST：任务列表 / 新建任务向导 / 任务详情（五步进度 + 实时）/ 洞察展示（含图表）/ 数据字典预览 / 生成代码预览 / 数据源 CRUD / 团队切换 / 主题切换入口（先只给 sunrise 一套，但机制要完整）
+    SHOULD（V1，非本次）：洞察导出、代码 diff、执行历史、第二套主题落地
+    WON'T：Agent 6/7、配额计费、审批流、对话式入口、SQL IDE、TanStack Query 等请求缓存层
+
+  代码规范：
+    - 业务组件中文注释，函数边界与流程节点必须注释
+    - 遵循 chinese-code-comments 规则
+    - 所有颜色/间距/圆角/字号走 token，不写魔法常量
+
+rules:
+  proposal:
+    - Keep proposals under 700 words
+    - Always include "Non-goals" section
+    - Mention dependencies on insight-x API explicitly
+    - Explicitly state "不使用 TanStack Query / 不做 API 缓存"
+  tasks:
+    - Break tasks into chunks of max 2 hours
+    - Group by route/page or by subsystem (theme / api / routing)
+    - Token 系统作为独立的首批任务块
+  spec:
+    - Each capability spec must list Given/When/Then scenarios
+    - Capabilities are named by user outcome, not technical layer
+    - 主题切换/token 体系单独作为一个 capability spec
+  specs:
+    - Each capability spec must list Given/When/Then scenarios
+    - Capabilities are named by user outcome, not technical layer
+    - 主题切换/token 体系单独作为一个 capability spec

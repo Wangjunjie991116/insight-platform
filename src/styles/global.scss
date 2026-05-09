@@ -1,0 +1,109 @@
+@use './tokens' as *;
+@use './mixins' as *;
+
+// ---------------------------------------------------------
+// 全局样式：CSS reset、html/body 背景、滚动条、Antd 关键覆盖
+// ---------------------------------------------------------
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--ix-font-family);
+  font-size: var(--ix-font-size-base);
+  color: text-primary();
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  // 背景走 token，切主题瞬时过渡
+  background: bg-page();
+  background-attachment: fixed;
+  color: text-primary();
+  transition: background motion-slow() motion-easing(), color motion-base() motion-easing();
+
+  @include custom-scrollbar;
+}
+
+a {
+  color: text-link();
+  text-decoration: none;
+  transition: color motion-fast() motion-easing();
+
+  &:hover {
+    color: color-primary-hover();
+  }
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+// Antd 组件的背景统一透明化，让玻璃态叠在渐变背景上
+.ant-layout,
+.ant-layout-header,
+.ant-layout-sider,
+.ant-layout-content {
+  background: transparent !important;
+}
+
+// Pro 布局容器背景也透明
+.ant-pro-layout,
+.ant-pro-layout .ant-pro-layout-bg-list {
+  background: transparent !important;
+}
+
+// 让玻璃态卡片 hover 色过渡更自然
+.ant-card {
+  background: card-bg();
+  backdrop-filter: blur(card-blur());
+  -webkit-backdrop-filter: blur(card-blur());
+  border: card-border();
+  box-shadow: card-shadow();
+  transition:
+    background motion-base() motion-easing(),
+    border-color motion-base() motion-easing(),
+    box-shadow motion-base() motion-easing();
+}
+
+// 文本选择色跟随主题
+::selection {
+  background: color-primary();
+  color: text-on-primary();
+}
+
+// 辅助类 -------------------------------------------------
+.ix-glass {
+  @include glass;
+}
+.ix-hover-lift {
+  @include hover-lift;
+}
+.ix-gradient-text {
+  @include gradient-text;
+}
+.ix-gradient-bg {
+  @include gradient-bg;
+}

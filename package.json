@@ -1,0 +1,77 @@
+{
+  "name": "insight-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Insight-X AI Agent 数据分析平台的 Web 控制台",
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 5174",
+    "lint": "eslint . --ext .ts,.tsx --max-warnings 0",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "stylelint": "stylelint \"src/**/*.scss\"",
+    "typecheck": "tsc -b --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,scss,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,scss,json,md}\"",
+    "msw:init": "msw init public/ --save"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.0.0",
+    "ahooks": "^3.8.1",
+    "antd": "^6.3.7",
+    "axios": "^1.7.9",
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "react-syntax-highlighter": "^15.6.1",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "msw": "^2.14.5",
+    "prettier": "^3.4.2",
+    "sass": "^1.82.0",
+    "stylelint": "^16.11.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "typescript": "^5.7.2",
+    "vite": "^8.0.11"
+  },
+  "browserslist": {
+    "production": [
+      "Chrome >= 100",
+      "Safari >= 15.4",
+      "Firefox >= 102",
+      "Edge >= 100"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}
